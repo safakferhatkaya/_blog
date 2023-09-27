@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "About"
-author: "Safak"
+author: "safak"
 permalink: /about/
 ---
 
-test drive.
+Personal blog of Safak Ferhat Kaya. WIP.
