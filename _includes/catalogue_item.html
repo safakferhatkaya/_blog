@@ -11,7 +11,7 @@
       {% if post.excerpt_separator %}
         {{ post.excerpt | strip_html }}
       {% else %}
-        {{ post.content | strip_html | truncatewords: 30 }}
+        {{ post.content | strip_html | truncatewords: 25 }}
       {% endif %}
     </p>
 
