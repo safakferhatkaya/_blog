@@ -1,1 +1,1 @@
-__
+safakferhatkaya's personal blog.
