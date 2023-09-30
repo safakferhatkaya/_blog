@@ -2,7 +2,8 @@
 title: "What are these things at the end of the asset file URLs?"
 tags: [TIL, Rails]
 layout: post
-author: "safak"
+permalink: 2023-09-26-rails-assets-fingerprinting.html
+lang: en
 ---
 
 
@@ -19,7 +20,7 @@ my-site.com/assets/cuties/eepy-cat-99b7082082fe58d58fe828581d4a47aedf277e1cf0e47
 
 ### What is this chaos and random strings/integers at the end of the asset file's URL?
 
-This things known as `fingerprints` and Rails applies these unique identifiers the CSS, JS and image assets.
+This things known as `fingerprints`, Rails applies these unique identifiers the CSS, JS and image assets.
 
 The main reason of Rails (or any other framework) using this method is to create fast web pages by caching the asset files.
 

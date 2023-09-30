@@ -3,10 +3,26 @@
     <a href="{{ site.baseurl }}/">
       <h2 class="nav-title">{{ site.title }}</h2>
     </a>
+    <div style="display: flex;">
     <ul>
       <li><a href="{{ site.baseurl }}/">Posts</a></li>
       <li><a href="{{ '/tags' | prepend: site.baseurl }}">Tags</a></li>
       <li><a href="{{ '/about' | prepend: site.baseurl }}">About</a></li>
-    </ul>
+      <li>{
+      {% for lang_option in site.languages %}
+      {% assign lang_name = site.data.languages[lang_option].name[site.active_lang] %}
+        {% if site.default_lang == lang_option %}
+          <a style="font-size: 15px;" href=" {{ page.permalink }}">
+        {% else %}
+          <a style="font-size: 15px;" href="{{ site.url }}/{{ lang_option }}{{ page.permalink }}">
+        {% endif %}
+        {{ lang_name }}
+          </a>
+      {% endfor %}
+      }</li>
+      </ul>
+    </div>
   </div>
+
+
 </nav>

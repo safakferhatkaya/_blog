@@ -5,8 +5,7 @@
 }
 
 main,
-footer,
-.nav-container {
+footer {
   display: block;
   margin: 0 auto;
   max-width: 800px;
@@ -17,7 +16,15 @@ footer,
   box-shadow: 0 2px 2px -2px $shadow-color;
   overflow: auto;
 
+  &-lang {
+    margin: 1rem auto;
+    position: relative;
+    text-align: center;
+  }
+
   &-container {
+    width: 80%;
+
     margin: 1rem auto;
     position: relative;
     text-align: center;
@@ -51,7 +58,7 @@ footer,
     padding: 0 2rem 0 0;
 
     &:last-child {
-      padding-right: 0;
+      padding-right: 30;
     }
 
     &:hover,

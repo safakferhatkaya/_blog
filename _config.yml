@@ -29,6 +29,7 @@ plugins:
   - jekyll-seo-tag
   - jekyll-paginate
   - jekyll-remote-theme
+  - jekyll-polyglot
 
 # Permalinks
 permalink:      /:year-:month-:day/:title
@@ -41,3 +42,8 @@ exclude: [ Gemfile, Gemfile.lock, tale.gemspec, vendor ]
 disqus:         jekyll-tale
 
 remote_theme: chesterhow/tale
+
+languages: ["en", "tr"]
+default_lang: "en"
+exclude_from_localization: ["javascript", "images", "css"]
+parallel_localization: false

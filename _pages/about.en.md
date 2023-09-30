@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "About"
-author: "safak"
 permalink: /about/
+lang: en
 ---
 
 Personal blog of Safak Ferhat Kaya. WIP.

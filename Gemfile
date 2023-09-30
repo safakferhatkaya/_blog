@@ -6,6 +6,7 @@ gem "jekyll"
 gem "jekyll-remote-theme"
 gem "jekyll-paginate"
 gem "jekyll-paginate-content"
+gem "jekyll-polyglot"
 gem "kramdown"
 gem "kramdown-parser-gfm"
 

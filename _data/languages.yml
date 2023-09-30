@@ -1,0 +1,10 @@
+en:
+  name:
+    en: en
+    tr: en
+  fastcomments_locale: en_us
+tr:
+  name:
+    en: tr
+    tr: tr
+  fastcomments_locale: tr_tr

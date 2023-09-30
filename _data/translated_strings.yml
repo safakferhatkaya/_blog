@@ -1,0 +1,14 @@
+fastcomments_locale:
+  en: en_us
+  tr: tr_tr
+description:
+  en: >-
+    Personal blog
+  tr: >-
+    Kişisel blog
+subscribe:
+  en: Subscribe
+  tr: Abone Ol
+posts:
+  en: Posts
+  tr: Gönderiler
