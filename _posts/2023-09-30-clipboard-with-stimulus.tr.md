@@ -133,7 +133,7 @@ Bunun için öncelikle state'i (yani eski haline dönüşünü) sağlayabilmek i
 
 Özetle: Yukarıdaki kod parçası, kopyalama işlemi başarılı olduğunda kullanıcıya bildirim vermek ve ikonu eski haline döndürmek için kullanılmaktadır. `notifyUI` methodu, `navigator.clipboard.writeText(text)` işleminin ardından çalışır.
 
-İlk olarak, ikonun içeriğini "Copied!" veya `successMessageValue` ile değiştirmektedir, böylece kullanıcıya başarılı bir kopyalama işlemi olduğunu bildirir. Ardından, `setTimeout` kullanarak 2 saniye sonra ikonun orijinal halini geri almasını sağlamaktadır.
+İlk olarak, ikonun içeriğini `successMessageValue` ile değiştirmektedir, böylece kullanıcıya başarılı bir kopyalama işlemi olduğunu bildirir. Ardından, `setTimeout` kullanarak 2 saniye sonra ikonun orijinal halini geri almasını sağlamaktadır.
 
 <img src="/assets/images/notifyUI-method.gif" loading="lazy" alt="NotifyUI methodunun çalışma şekli" width="400"/>
 
