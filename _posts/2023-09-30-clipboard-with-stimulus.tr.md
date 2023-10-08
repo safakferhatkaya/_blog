@@ -8,9 +8,6 @@ lang: tr
 
 ### Bu yazıda Stimulus'un temel bazı özelliklerinden bahsederken, Stimulus ile Rails uygulamasına Copy to Clipboard özelliğinin nasıl eklenebileceğinden bahsedeceğim.
 
-Stimulus, kendisini kısaca mütevazi JavaScript framework'ü olarak tanımlıyor.
-View'ın tamamını kontrol etmenizi sağlamaktan ziyade, interaktif DOM aksiyonlarını özel tanımlayıcıları sayesinde kolaylaştıran/karmaşıklığı azaltan bir JS frameworküdür.
-
 Örnek olarak view'ımızda şarkı sözleri olsun.
 
 <script src="https://gist.github.com/safakferhatkaya/210fbcc158f275c2662888489d287062.js?file=_lyricss.html.erb"></script>
@@ -19,31 +16,29 @@ Bu HTML kodunun çıktısı şu şekilde olacaktır.
 
 <img src="/assets/images/clipboard-lyrics-html-output.png" loading="lazy" alt="Html kodu ciktiis" width="400"/>
 
-Amacımız kullanıcı kopyalama ikonuna tıklandığında şarkı sözlerinin kullanıcının panosuna (clipboard) kopyalanmasıdır.
+Amacımız kullanıcı kopyalama ikonuna tıklandığında şarkı sözlerinin kullanıcının panosuna (clipboard'a) kopyalanmasını sağlamak.
 
-Bunu sağlamak için gerekli adımlar şu şekilde sıralanabilir:
+İkon'a tıklandığında şarkı sözlerinin panoya kopyalanmasını sağlamak için gerekli adımlar şu şekilde sıralanabilir:
 1. Stimulus'ta `clipboard_controller.js` oluşturulmalı.
-2. Kopyalanacak iceriği, oluşturulan controllerda referans (target) edilmesi sağlanmalı.
-3. Icon'a tıklandığında şarkı sözlerinin panoya kopyalanmasını sağlayan method tanımlanmalı.
-    <br>Bunun için:
-    1. Icon'un `data attribute`'una icona tiklandiginda çalışması üzere, `data-action` attribute'unda `copy` adında bir JS actionı tanımlanmalı.
-    2. Kopyalanılacak iceriğin (şarkı sözleri) `clipboard controller`'da referans (target) edilmesi sağlanmalı.
-    3. Kopyalama işleminin başarılı olduğunu kullanıcıya feedback verebilmek amacıyla; ikonun yerinde bir süre 'Kopyalandı.' yazmalı ve icon eski haline dönmeli.
+2. Kopyalanacak içeriğin, oluşturulan controllera referans (target) edilmesi sağlanmalı.
+3. İkon'un `data attribute`'una ikona tıklandığında çalışması üzere, `data-action` attribute'unda `copy` adında bir JS actionı tanımlanmalı.
+4. Kopyalanılacak içeriğin (şarkı sözleri) `clipboard controller`'da referans (target) edilmesi sağlanmalı.
+5. Kopyalama işleminin başarılı olduğunu kullanıcıya bildirebilmek (feedback) amacıyla; ikonun konumunda bir süreliğine 'Kopyalandı.' yazmalı ve ikon eski haline dönmeli.
 
 HTML tarafında gerekli değişiklikleri uyguladığımızda, kod şu şekilde görünecektir.
 
 <script src="https://gist.github.com/safakferhatkaya/210fbcc158f275c2662888489d287062.js?file=_lyrics.html.erb"></script>
 
-1. Tüm içeriği saran div (wrapper), `data-controller` özelliği ile `clipboard_controller.js`'e bağlanması sağlandı. Böylece Stimulus controller'ın scope'unu tanımlanmış olduk[^1].
-2. Icon buton ile wrap edildi, Butona tıklandığında JS controller'da oluşturulacak `copy` actionının çalışmasını sağlayacak.
+1. Tüm içeriği saran div (wrapper), `data-controller` özelliği ile `clipboard_controller.js`'e bağlanması sağlandı. Böylece Stimulus controller'ın scope'u tanımlanmış oldu[^1].
+2. İkon buton ile wrap edildi, Butona tıklandığında JS controller'da oluşturulacak `copy` actionının çalışmasını sağlandı.
 3. Butonun varsayılan davranışı tıklama (click) olduğu için, yalnızca action'i yazmamız yetecektir. jQuery'deki gibi `click->clipboard#copy` şeklinde bir syntax'a gerek duyulmamaktadır[^2].
-4. 2 numaralı hedefi (şarkı sözlerini clipboarda kopyalamak) gerçekleştirmek için şarkı sozlerinin oldugu div'e `text-container` target'i verildi.
-5. Iconu wrap eden butona `clipboard-button` target'i tanimlanarak 3.3 hedefini gerçeklestirmek için target hazırlandı.
-6. 3.3 hedefini gerçekleştirmek için, clipboard controller'a `notify-message-value` gönderildi, bu sayede lokalize edilmiş bir mesaj ile 'Kopyalamanın başarılı olduğunu' kullanıcıya bildirebileceğiz.
+4. 2 numaralı hedefi (şarkı sözlerini controller'a target olarak tanımlamak) gerçekleştirmek için şarkı sozlerinin oldugu div'e `text-container` target'i verildi.
+5. İkonu wrap eden butona `clipboard-button` target'i tanimlanarak 5 numaralı hedefi gerçeklestirmek için target hazırlandı.
+6. 5 numaralı hedefini gerçekleştirmek için, clipboard controller'a `notify-message-value` gönderildi, bu sayede lokalize edilmiş bir mesaj ile 'Kopyalamanın başarılı olduğunu' kullanıcıya bildirilebilecek.
 
 Şimdi, Stimulus tarafında oluşacak targetlarımız ve methodlarımız belli, bunları oluşturabiliriz.
 
-Target'lar temelde querySelector'ler ile çalışan, ilgili tanımlı elementleri bulup erişmemizi, üzerinde işlem yapmamızı kolaylaştıran bir yöntemdir. Stimulus, controller'ın scope'undaki elemanları `queryElement` methodu aracılığıyla data attributelar üzerinden bulur ve kullanmamızı sağlar[^3].
+Target'lar temelde querySelector'ler ile çalışan, ilgili tanımlı elementleri bulup erişmemizi, üzerinde işlem yapmamızı kolaylaştıran bir yöntemdir. Stimulus, controller'ın scope'undaki elemanları `queryElement` methodu aracılığıyla data attributelar üzerinden bulur ve kullanabilmemize olanak sağlamaktadır[^3].
 
 
 ```javascript
@@ -52,11 +47,9 @@ Target'lar temelde querySelector'ler ile çalışan, ilgili tanımlı elementler
   static targets = ['textContainer', 'clipboardButton']
 ```
 
-Value tanımlaması esnasında value'nun tipini ve varsayılan değerini vererek daha tutarlı bir çalışma şekli sağlayabiliriz. Örneğin, lokalizasyon tanımlanmadıysa varsayılan olarak İngilizce'yi kullanarak kullanıcıya bildirim yapılmasını sağlarız.
+Value tanımlaması esnasında value'nun tipini ve varsayılan değerini vererek daha tutarlı bir çalışma şekli sağlayabiliriz. Örneğin, lokalizasyon tanımlanmadıysa varsayılan olarak İngilizce'yi kullanarak kullanıcıya bildirim yapılması sağlanabilir.
 
 
-
-Burada dikkat edilmesi gereken bir diğer husus, HTML'de kebab-case olarak tanımlanan `notify-message` değişkeninin Stimulus'ta camelCase'e dönüşmesidir. Naming convention'a dikkat edilmesi gerekmektedir.[^4]
 ```javascript
 // values
 
@@ -67,7 +60,13 @@ Burada dikkat edilmesi gereken bir diğer husus, HTML'de kebab-case olarak tanı
         }
   }
 ```
-Öncelikle `copy` methodumuzla başlayalım ve bu method'un clipboard iconuna tıklandığında çalışacağını hatırlayalım. Targetlara `this.[targetName]Target` şeklinde erişilmektedir ve bu methodda `textContainerTarget`'ın `innerText`'i clipboard'a yazılmıştır (kopyalanmıştır).
+
+Yukarıda dikkat edilmesi gereken bir diğer husus, HTML'de kebab-case olarak tanımlanan `notify-message` değişkeninin Stimulus'ta camelCase'e dönüşmesidir. Naming convention'a dikkat edilmesi gerekmektedir.[^4]
+
+Methodlar:
+
+
+Öncelikle `copy` methodumuzla başlayalım ve bu method'un clipboard ikonuna tıklandığında çalışacağını hatırlayalım. Targetlara `this.[targetName]Target` şeklinde erişilmektedir ve bu methodda `textContainerTarget`'ın `innerText`'i clipboard'a yazılmıştır (kopyalanmıştır).
 
 
 ```javascript
@@ -105,13 +104,14 @@ export default class extends Controller {
 }
 
 ```
-Şu an aslında clipboard'a kopyalama işlemi tamamlandı. Fakat durumun başarılı olduğunu kullanıcıya ifade etmek için bazı eklemeler yapmamız gerekiyor.. `succesMessage`'ı henüz kullanmadık.
+Şu an aslında controllerda pnaoya kopyalama işlemi yapılabilmektedir. Fakat durumun başarılı olduğunu kullanıcıya ifade etmek için bazı eklemeler yapmamız gerekiyor.. `succesMessage`'ı henüz kullanmadık.
 
-Clipboard'a kopyalama işlemi async bir işlem oldugu için `navigator.clipboard.writeText(text).then(notifyUI)` şeklinde ekrana feedback veren bir method tanımlamamız gerekmektedir.
+Yapacağımız işlem aslında basitçe `notifyUI` methodu aracılığıyla kopyalama ikonunun içeriğini değiştirip, bir süre sonra eski haline döndürülmesidir.
 
-Yapacağımız işlem aslında basitçe `notifyUI` methodu aracılığıyla clipboard iconunun içeriğini değiştirip, bir süre sonra eski haline dondürmek.
-Bunu sağlamak için `setTimeout` methodu makul görünmektedir.
-Bunun için oncelikle state'i yani eski haline dönüşünü, sağlayabilmek için Stimulus'un callback actionlarindan olan `connect()` methodunu kullanalım ve innerHTML'ın eski halini hafızaya alalım.
+Panoya kopyalama işlemi async bir işlem oldugu için `navigator.clipboard.writeText(text).then(notifyUI)` şeklinde ekrana feedback veren bir method tanımlamamız gerekmektedir.
+Bunu sağlamak için `setTimeout` methodunu kullanmak gereklidir.
+
+Bunun için öncelikle state'i (yani eski haline dönüşünü) sağlayabilmek için Stimulus'un callback actionlarindan olan `connect()` methodunu kullanalım ve innerHTML'ın eski halini hafızaya alalım.
 `connect` methodu controller DOM'a her bağlandığında çalışmaktadır. [^5]
 
 ```javascript
@@ -131,11 +131,11 @@ Bunun için oncelikle state'i yani eski haline dönüşünü, sağlayabilmek iç
   }
 ```
 
-Yukarıdaki kod, kopyalama işlemi başarılı olduğunda kullanıcıya bildirim vermek ve ikonu eski haline döndürmek için kullanılır. notifyUI methodu, `navigator.clipboard.writeText(text)` işleminin ardından çalışır. İlk olarak, iconun içeriğini "Copied!" veya successMessageValue ile değiştirir, böylece kullanıcıya başarılı bir kopyalama işlemi olduğunu bildirir. Daha sonra, setTimeout kullanarak 2 saniye sonra iconun orijinal içeriğini geri almasını sağlar.
+Özetle: Yukarıdaki kod parçası, kopyalama işlemi başarılı olduğunda kullanıcıya bildirim vermek ve ikonu eski haline döndürmek için kullanılmaktadır. notifyUI methodu, `navigator.clipboard.writeText(text)` işleminin ardından çalışır. İlk olarak, ikonun içeriğini "Copied!" veya `successMessageValue` ile değiştirmektedir, böylece kullanıcıya başarılı bir kopyalama işlemi olduğunu bildirir. Ardından, `setTimeout` kullanarak 2 saniye sonra ikonun orijinal halini geri almasını sağlamaktadır.
 
 <img src="/assets/images/notifyUI-method.gif" loading="lazy" alt="NotifyUI methodunun çalışma şekli" width="400"/>
 
-Elimizdeki tüm bu methodları birleştirdigimizde `clipboard_controller.js` dosyasının son hali aşağıdaki gibi olacaktır.
+Elimizdeki tüm bu methodları birleştirdiğimizde `clipboard_controller.js` dosyasının son hali aşağıdaki gibi olacaktır.
 
 <script src="https://gist.github.com/safakferhatkaya/210fbcc158f275c2662888489d287062.js?file=clipboard_controller.js"></script>
 
