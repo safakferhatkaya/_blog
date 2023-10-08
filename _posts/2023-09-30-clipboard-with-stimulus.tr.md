@@ -139,7 +139,7 @@ Elimizdeki tüm bu methodları birleştirdigimizde `clipboard_controller.js` dos
 
 <script src="https://gist.github.com/safakferhatkaya/210fbcc158f275c2662888489d287062.js?file=clipboard_controller.js"></script>
 
-Bu yazıda 'copy to clipboard' fonksiyonalitesi sağlamak için ilgili controller'ın oluşturulması üzerinden temel Stimulus yöntemleri üzerine konuştuk. Umarım faydalı bir yazı olmuştur.
+Bu yazıda 'copy to clipboard' fonksiyonalitesi sağlamak için ilgili controller'ın oluşturulması üzerinden temel Stimulus yöntemleri üzerine konuştuk.
 -----------
 <br>
 
