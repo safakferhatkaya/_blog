@@ -1,12 +1,12 @@
 ---
-title: "Stimulus ile Copy to Clipboard"
+title: "Stimulus ile Panoya Kopyalama"
 tags: [Stimulus]
 layout: post
 permalink: 2023-09-30-clipboard-controller-with-stimulus.html
 lang: tr
 ---
 
-### Bu yazıda Stimulus'un temel bazı özelliklerinden bahsederken, Stimulus ile Rails uygulamasına Copy to Clipboard özelliğinin nasıl eklenebileceğinden bahsedeceğim.
+### Bu yazıda Stimulus'un temel bazı özelliklerinden bahsederken, Stimulus ile Rails uygulamasına 'Panoya Kopyalama' özelliğinin nasıl eklenebileceğinden bahsedilecek.
 
 Örnek olarak view'ımızda şarkı sözleri olsun.
 
@@ -21,7 +21,7 @@ Amacımız kullanıcı kopyalama ikonuna tıklandığında şarkı sözlerinin k
 İkon'a tıklandığında şarkı sözlerinin panoya kopyalanmasını sağlamak için gerekli adımlar şu şekilde sıralanabilir:
 1. Stimulus'ta `clipboard_controller.js` oluşturulmalı.
 2. Kopyalanacak içeriğin, oluşturulan controllera referans (target) edilmesi sağlanmalı.
-3. İkon'un `data attribute`'una ikona tıklandığında çalışması üzere, `data-action` attribute'unda `copy` adında bir JS actionı tanımlanmalı.
+3. İkon'un `data attribute`'una ikona tıklandığında çalışması üzere, `data-action` attribute'unda `copy` adında bir JS methodu tanımlanmalı.
 4. Kopyalanılacak içeriğin (şarkı sözleri) `clipboard controller`'da referans (target) edilmesi sağlanmalı.
 5. Kopyalama işleminin başarılı olduğunu kullanıcıya bildirebilmek (feedback) amacıyla; ikonun konumunda bir süreliğine 'Kopyalandı.' yazmalı ve ikon eski haline dönmeli.
 
@@ -30,7 +30,7 @@ HTML tarafında gerekli değişiklikleri uyguladığımızda, kod şu şekilde g
 <script src="https://gist.github.com/safakferhatkaya/210fbcc158f275c2662888489d287062.js?file=_lyrics.html.erb"></script>
 
 1. Tüm içeriği saran div (wrapper), `data-controller` özelliği ile `clipboard_controller.js`'e bağlanması sağlandı. Böylece Stimulus controller'ın scope'u tanımlanmış oldu[^1].
-2. İkon buton ile wrap edildi, Butona tıklandığında JS controller'da oluşturulacak `copy` actionının çalışmasını sağlandı.
+2. İkon buton ile wrap edildi, Butona tıklandığında JS controller'da oluşturulacak `copy` methodunun çalışmasını sağlandı.
 3. Butonun varsayılan davranışı tıklama (click) olduğu için, yalnızca action'i yazmamız yetecektir. jQuery'deki gibi `click->clipboard#copy` şeklinde bir syntax'a gerek duyulmamaktadır[^2].
 4. 2 numaralı hedefi (şarkı sözlerini controller'a target olarak tanımlamak) gerçekleştirmek için şarkı sozlerinin oldugu div'e `text-container` target'i verildi.
 5. İkonu wrap eden butona `clipboard-button` target'i tanimlanarak 5 numaralı hedefi gerçeklestirmek için target hazırlandı.
