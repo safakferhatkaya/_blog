@@ -1,5 +1,5 @@
 ---
-title: "Asset dosyalarının sonundaki bu şeyler de ne?"
+title: "Rails Assets Fingerprinting"
 tags: [TIL, Rails]
 layout: post
 permalink: 2023-09-26-rails-assets-fingerprinting.html

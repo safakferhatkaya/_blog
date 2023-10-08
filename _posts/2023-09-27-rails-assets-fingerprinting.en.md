@@ -1,5 +1,5 @@
 ---
-title: "What are these things at the end of the asset file URLs?"
+title: "Rails Assets Fingerprinting"
 tags: [TIL, Rails]
 layout: post
 permalink: 2023-09-26-rails-assets-fingerprinting.html
