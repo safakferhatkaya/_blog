@@ -2,7 +2,7 @@
 title: "Terminal Çıktılarını Dosyaya Kaydetme, &>"
 tags: [TIL, Notes, Bash]
 layout: post
-permalink: 2023-09-26-terminal-ciktisini-kaydetmek.html
+permalink: 2023-12-13-terminal-ciktisini-kaydetmek.html
 lang: tr
 ---
 
