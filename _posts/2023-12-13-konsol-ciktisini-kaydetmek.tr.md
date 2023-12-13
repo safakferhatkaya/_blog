@@ -18,7 +18,7 @@ bin/rails test:all &> output.log
 
 Bu satırda, `bin/rails test:all` komutu çalıştır ve çıktısını output.log dosyasını oluşturup, bu dosyaya yazar.
 
-### git status örneği:
+### örnek, git status komutunun çıktısını status.log dosyasına yazmak:
 
 <img src="/assets/images/log-run.png" alt="output redirecting kullanımı"/>
 <img src="/assets/images/status-log.png" alt="output redirecting ciktisi"/>
